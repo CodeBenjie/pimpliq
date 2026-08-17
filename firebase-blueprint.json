@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "Consultation": {
+      "title": "Consultation",
+      "description": "Client consultation booking request",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "maxLength": 150 },
+        "email": { "type": "string", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "service": { "type": "string", "maxLength": 100 },
+        "company": { "type": "string", "maxLength": 150 },
+        "budgetRange": { "type": "string", "maxLength": 100 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed", "cancelled"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["fullName", "email", "phone", "service", "status"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Contact or general inquiry message",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 150 },
+        "email": { "type": "string", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "subject": { "type": "string", "maxLength": 200 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "email", "message"]
+    }
+  },
+  "firestore": {
+    "/consultations/{consultationId}": {
+      "schema": "Consultation",
+      "description": "Client consultation bookings and appointment inquiries"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "General inquiries from website contact form"
+    }
+  }
+}
