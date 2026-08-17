@@ -36,6 +36,7 @@ export const LeadershipSection: React.FC = () => {
                 {/* Director Portrait Column */}
                 <div className="w-full sm:w-5/12 relative overflow-hidden bg-slate-900 aspect-[4/5] sm:aspect-auto sm:min-h-[460px] shrink-0">
                   <img
+                    id={`director-img-${director.id}`}
                     src={director.imageUrl}
                     alt={`${director.name} - ${director.role}`}
                     referrerPolicy="no-referrer"
@@ -46,7 +47,9 @@ export const LeadershipSection: React.FC = () => {
                         target.src = fallback;
                       }
                     }}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${
+                      director.id === 'dir-2' ? 'object-[center_15%]' : 'object-[center_12%]'
+                    }`}
                   />
 
                   {/* Subtle dark gradient overlay */}
