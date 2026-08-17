@@ -14,6 +14,7 @@ import { CtaBanner } from './components/CtaBanner';
 import { ContactSection } from './components/ContactSection';
 import { ServiceModal } from './components/ServiceModal';
 import { AiAdvisorWidget } from './components/AiAdvisorWidget';
+import { WhatsAppWidget } from './components/WhatsAppWidget';
 import { Footer } from './components/Footer';
 import { InteractiveBackground } from './components/InteractiveBackground';
 import { CheckCircle2, Sparkles } from 'lucide-react';
@@ -138,12 +139,15 @@ export default function App() {
         onRequestConsultation={() => scrollToContact()}
       />
 
+      {/* Floating Instant WhatsApp Live Connect */}
+      <WhatsAppWidget />
+
       {/* AI Studio Advisor Floating Widget */}
       <AiAdvisorWidget />
 
       {/* Floating Toast Notification */}
       {toastText && (
-        <div className="fixed bottom-6 left-6 z-50 bg-[#0F172A] text-white px-5 py-3.5 rounded-2xl shadow-2xl border-l-4 border-[#D4AF37] flex items-center gap-3 text-xs sm:text-sm animate-bounce">
+        <div className="fixed top-24 right-6 z-50 bg-[#0F172A] text-white px-5 py-3.5 rounded-2xl shadow-2xl border-l-4 border-[#D4AF37] flex items-center gap-3 text-xs sm:text-sm animate-bounce">
           <CheckCircle2 className="w-5 h-5 text-[#D4AF37]" />
           <span>{toastText}</span>
         </div>

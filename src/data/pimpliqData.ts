@@ -49,109 +49,98 @@ export const CORE_PILLARS: ServicePillar[] = [
   {
     id: 'brand-management',
     title: '1. Brand Management Practice',
-    subtitle: 'Comprehensive Strategy, Identity & Market Positioning',
+    subtitle: 'Strategy, Identity & Market Positioning',
     category: 'Brand Management',
-    description: 'We take a research-driven, holistic approach to brand management across 8 specialized modules, ensuring every element aligns with your business goals and commands market authority.',
+    description: 'Holistic 8-module branding solutions that build enduring market authority, distinctive identity, and customer loyalty.',
     iconName: 'Bullhorn',
     isFeatured: true,
     features: [
       'Brand Strategy & Market Positioning',
       'Visual Identity & Style Manuals',
       'Go-to-Market Launch Campaigns',
-      'Digital Branding & Social Management',
-      'Brand Performance Audits & Repositioning',
-      'Corporate & C-Suite Executive Branding'
+      'Digital & Social Media Branding'
     ],
     deliverables: [
       '360° Brand Strategy Framework & Messaging Matrix',
-      'Comprehensive Brand Style Manuals (Logos, Color Palettes, Typography)',
+      'Comprehensive Brand Style Manuals (Logos, Typography, Color Schemes)',
       'Digital & Multi-Channel Marketing Playbooks',
-      'Quarterly Brand Equity & Reputation Monitoring Reports',
-      'Executive Thought Leadership & PR Positioning Kits'
+      'Quarterly Brand Equity Monitoring Reports'
     ]
   },
   {
     id: 'recruitment-talent',
     title: '2. Recruitment & Talent Sourcing',
-    subtitle: 'Connecting High-Growth Enterprises with Exceptional Leaders',
+    subtitle: 'Executive Search & Strategic Staffing',
     category: 'Recruitment',
-    description: 'Pimpliq connects organizations with top-tier talent tailored to corporate growth objectives through rigorous candidate audits, executive search, and strategic team placement.',
+    description: 'Connecting forward-thinking organizations with vetted executive leaders and specialized professionals.',
     iconName: 'UserCheck',
     isFeatured: false,
     features: [
-      'Executive Search & C-Suite Headhunting',
-      'Specialized Technical & Management Sourcing',
-      'Background, Qualification & Competency Audits',
-      'Strategic Workforce & Onboarding Frameworks'
+      'Executive Search & Headhunting',
+      'Competency & Background Audits',
+      'Strategic Workforce Onboarding'
     ],
     deliverables: [
-      'Vetted Executive Candidate Shortlists with Behavioral Assessments',
-      'Salary Benchmarking & Compensation Structure Reports',
-      'Seamless Onboarding & Cultural Integration Guidelines',
-      '90-Day Talent Retention Guarantee'
+      'Vetted Candidate Shortlists with Competency Assessments',
+      'Compensation Benchmarking Reports',
+      'Seamless Onboarding & Retention Guidelines'
     ]
   },
   {
     id: 'event-management',
     title: '3. Event Management & Activation',
-    subtitle: 'Landmark Corporate Experiences & Experiential Launches',
+    subtitle: 'Corporate Launches & Experiential Events',
     category: 'Events',
-    description: 'We plan, coordinate, and execute landmark corporate events, brand activation campaigns, conferences, and gala launches with flawless production quality and media impact.',
+    description: 'End-to-end planning and production for memorable corporate galas, launches, and brand activations.',
     iconName: 'CalendarHeart',
     isFeatured: false,
     features: [
-      'Corporate Product Launches & Gala Events',
-      'Experiential Brand Activations & Campaigns',
-      'End-to-End Production, Stage & AV Logistics',
-      'Vendor Management & PR Coordination'
+      'Product Launches & Gala Events',
+      'Brand Activations & Conferences',
+      'Turnkey AV, Stage & Media Production'
     ],
     deliverables: [
       'Turnkey Event Architecture & Spatial Design',
       'Full Technical Run-of-Show & Media Coverage',
-      'VIP Attendee Management & Experiential Gifting',
       'Post-Event ROI & Media Reach Analytics'
     ]
   },
   {
     id: 'taxation-compliance',
     title: '4. Taxation & Regulatory Compliance',
-    subtitle: 'Strategic Governance, Corporate Tax Planning & Audit Readiness',
+    subtitle: 'Corporate Tax, Audits & URA Governance',
     category: 'Taxation',
-    description: 'Reliable tax planning and regulatory compliance support that safeguards corporate assets, optimizes financial efficiency, and ensures 100% compliance with statutory requirements.',
+    description: 'Dependable tax advisory and compliance frameworks that safeguard enterprise assets and maintain audit readiness.',
     iconName: 'FileCheck2',
     isFeatured: false,
     features: [
-      'Corporate Tax Planning & Advisory',
-      'Statutory & Regulatory Filings',
+      'Corporate Tax Planning & Filings',
       'Tax Audit Preparation & Representation',
-      'Financial Risk Mitigation Frameworks'
+      'Statutory & Regulatory Reviews'
     ],
     deliverables: [
       'Corporate Tax Optimization Strategy',
-      'Timely Filing of VAT, Income Tax, and WHT Returns',
-      'Audit-Ready Documentation & Health Checks',
-      'Quarterly Regulatory Risk Assessments'
+      'Timely VAT, Income Tax & WHT Filings',
+      'Audit-Ready Documentation Health Checks'
     ]
   },
   {
     id: 'business-consultancy',
     title: '5. Strategic Business Consultancy',
-    subtitle: 'Operational Excellence, Scaling & Market Expansion',
+    subtitle: 'Operations, Scaling & Performance',
     category: 'Consultancy',
-    description: 'Tailored business advisory solutions designed to streamline operations, drive sustainable revenue growth, foster innovation, and unlock full organizational potential.',
+    description: 'Strategic advisory to streamline operations, drive profitability, and unlock market expansion.',
     iconName: 'TrendingUp',
     isFeatured: false,
     features: [
       'Enterprise Growth & Scaling Strategy',
-      'Operational Optimization & Process Engineering',
-      'Market Feasibility & Expansion Studies',
-      'Organizational Restructuring & Advisory'
+      'Operational Process Optimization',
+      'Market Entry & Feasibility Studies'
     ],
     deliverables: [
       '5-Year Strategic Corporate Growth Blueprint',
       'Process Bottleneck Elimination Roadmap',
-      'Market Entry & Competitive Intelligence Reports',
-      'Change Management Implementation Guidelines'
+      'Market Entry Intelligence Reports'
     ]
   }
 ];
@@ -163,13 +152,11 @@ export const BRAND_MODULES: BrandModule[] = [
     title: 'Brand Strategy Development',
     category: 'identity',
     categoryLabel: 'Strategy & Identity',
-    shortDesc: 'We define the foundation of your brand to ensure clarity, direction, and market alignment.',
+    shortDesc: 'Foundational strategy and positioning aligned with business goals.',
     bullets: [
-      'Brand positioning & market analysis',
-      'Target audience identification & persona mapping',
-      'Competitive landscape evaluation',
-      'Mission, vision, & core values definition',
-      'Brand messaging framework & storytelling'
+      'Market & competitive analysis',
+      'Target persona & audience mapping',
+      'Core values, mission & storytelling'
     ],
     iconName: 'Compass'
   },
@@ -179,12 +166,11 @@ export const BRAND_MODULES: BrandModule[] = [
     title: 'Brand Identity Design',
     category: 'identity',
     categoryLabel: 'Strategy & Identity',
-    shortDesc: 'We create visually compelling, consistent, and memorable brand identities.',
+    shortDesc: 'Visually distinct, consistent, and memorable visual systems.',
     bullets: [
-      'Logo design & primary brand marks',
-      'Color palette & typography selection',
-      'Brand guidelines & style manuals',
-      'Corporate identity collateral (cards, letterheads)'
+      'Logo & brand mark design',
+      'Color palettes & typography guidelines',
+      'Corporate stationery & collateral'
     ],
     iconName: 'Palette'
   },
@@ -194,87 +180,81 @@ export const BRAND_MODULES: BrandModule[] = [
     title: 'Brand Development & Launch',
     category: 'identity',
     categoryLabel: 'Strategy & Identity',
-    shortDesc: 'We bring your brand to life and introduce it to the market with maximum impact.',
+    shortDesc: 'High-impact product naming and go-to-market introduction.',
     bullets: [
       'Brand naming & tagline creation',
-      'Product & service brand architecture',
-      'Brand launch campaign strategies',
-      'Go-to-market planning & execution'
+      'Product brand architecture',
+      'Go-to-market launch planning'
     ],
     iconName: 'Rocket'
   },
   {
     id: 'bm-4',
     moduleNumber: '04',
-    title: 'Digital Branding & Online Presence',
+    title: 'Digital Branding & Presence',
     category: 'digital',
     categoryLabel: 'Digital & Marketing',
-    shortDesc: 'We ensure your brand stands out in the modern digital ecosystem.',
+    shortDesc: 'Polished digital touchpoints across web and social platforms.',
     bullets: [
-      'Social media channel branding & management',
-      'Website branding & UI/UX alignment',
-      'Online reputation & review management',
-      'Content creation & brand storytelling',
-      'Targeted digital ad campaigns'
+      'Social channel branding & strategy',
+      'Website UI/UX brand alignment',
+      'Content creation & online reputation'
     ],
     iconName: 'Globe'
   },
   {
     id: 'bm-5',
     moduleNumber: '05',
-    title: 'Brand Communication & Marketing',
+    title: 'Brand Communication',
     category: 'digital',
     categoryLabel: 'Digital & Marketing',
-    shortDesc: 'We help you communicate your brand story consistently across all touchpoints.',
+    shortDesc: 'Unified messaging and promotional campaigns across media.',
     bullets: [
-      'Integrated marketing strategy development',
-      'Advertising & promotional collateral',
-      'Multi-channel campaign planning',
-      'Public relations & media awareness drives'
+      'Integrated marketing campaigns',
+      'Advertising & sales collateral',
+      'PR & executive media relations'
     ],
     iconName: 'Megaphone'
   },
   {
     id: 'bm-6',
     moduleNumber: '06',
-    title: 'Brand Monitoring & Performance',
+    title: 'Monitoring & Performance',
     category: 'performance',
     categoryLabel: 'Monitoring & Refresh',
-    shortDesc: 'We track, analyze, and continuously improve your brand equity with data.',
+    shortDesc: 'Data-driven tracking of brand equity and audience sentiment.',
     bullets: [
-      'Comprehensive brand audits & evaluations',
-      'Customer perception & sentiment analysis',
-      'Market feedback loops & consumer insights',
-      'Performance reporting & growth recommendations'
+      'Brand health & equity audits',
+      'Customer perception tracking',
+      'Actionable performance reports'
     ],
     iconName: 'Activity'
   },
   {
     id: 'bm-7',
     moduleNumber: '07',
-    title: 'Brand Repositioning & Refresh',
+    title: 'Repositioning & Refresh',
     category: 'performance',
     categoryLabel: 'Monitoring & Refresh',
-    shortDesc: 'We revitalize established brands to stay relevant in changing markets.',
+    shortDesc: 'Modernizing established brands for changing markets.',
     bullets: [
-      'Complete brand redesign & modernization',
-      'Refining messaging for modern audiences',
-      'Market repositioning strategies',
-      'Rebranding campaign execution'
+      'Visual refresh & brand modernization',
+      'Messaging realignment',
+      'Rebranding launch execution'
     ],
     iconName: 'RefreshCw'
   },
   {
     id: 'bm-8',
     moduleNumber: '08',
-    title: 'Corporate & Personal Branding',
+    title: 'Corporate & Executive Branding',
     category: 'performance',
     categoryLabel: 'Monitoring & Refresh',
-    shortDesc: 'We build high-trust identities for both organizations and C-suite leaders.',
+    shortDesc: 'Building high-trust profiles for companies and C-suite leaders.',
     bullets: [
-      'Executive & C-suite leadership branding',
-      'Personal brand strategy for founders',
-      'Corporate reputation management & PR'
+      'Executive thought leadership kits',
+      'Founder personal branding',
+      'Corporate reputation governance'
     ],
     iconName: 'UserCheck'
   }
