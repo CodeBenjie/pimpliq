@@ -1,29 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { DIRECTORS } from '../data/pimpliqData';
 import { Sparkles, CheckCircle2, Quote } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const LeadershipSection: React.FC = () => {
-  const [customPhotos, setCustomPhotos] = useState<{ [key: string]: string }>({});
-
-  // Load custom saved photos from localStorage if present
-  useEffect(() => {
-    try {
-      const loaded: { [key: string]: string } = {};
-      DIRECTORS.forEach((d) => {
-        const saved = localStorage.getItem(`pimpliq_director_${d.id}`);
-        if (saved) {
-          loaded[d.id] = saved;
-        }
-      });
-      if (Object.keys(loaded).length > 0) {
-        setCustomPhotos(loaded);
-      }
-    } catch (e) {
-      console.warn('Unable to access localStorage for director photos', e);
-    }
-  }, []);
-
   return (
     <section id="leadership" className="py-20 md:py-24 bg-[var(--bg-secondary)] border-t border-[var(--border-color)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,8 +24,6 @@ export const LeadershipSection: React.FC = () => {
         {/* Directors Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {DIRECTORS.map((director, index) => {
-            const activeImage = customPhotos[director.id] || director.imageUrl;
-
             return (
               <motion.div
                 key={director.id}
@@ -58,7 +36,7 @@ export const LeadershipSection: React.FC = () => {
                 {/* Director Portrait Column */}
                 <div className="w-full sm:w-5/12 relative overflow-hidden bg-slate-900 aspect-[4/5] sm:aspect-auto sm:min-h-[460px] shrink-0">
                   <img
-                    src={activeImage}
+                    src={director.imageUrl}
                     alt={`${director.name} - ${director.role}`}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"

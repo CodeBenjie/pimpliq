@@ -2,7 +2,7 @@ import { ServicePillar, BrandModule, CaseStudy, Testimonial, EstimatorItem, Dire
 
 import heroOfficeImg from '../assets/images/hero_ugandan_office_1786641496658.jpg';
 import officialLogoImg from '../assets/images/pimpliq_official_logo_1786455272779.jpg';
-import nabasaMoreenImg from '../assets/images/nabasa_nobulb_1786966968699.jpg';
+import nabasaMoreenImg from '../assets/images/nabasa_moreen.jpg';
 import sarahNakateImg from '../assets/images/sarah_nakate.jpg';
 import brandStudioImg from '../assets/images/ugandan_brand_studio_1786641516587.jpg';
 import teamMeetingImg from '../assets/images/ugandan_team_meeting_1786641505809.jpg';
