@@ -82,5 +82,7 @@ export interface CompanyContactInfo {
   tiktokUrl: string;
   instagramHandle: string;
   instagramUrl: string;
+  facebookHandle: string;
+  facebookUrl: string;
   socialNote: string;
 }

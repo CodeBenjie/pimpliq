@@ -255,7 +255,7 @@ Company Contact & Location Details:
 - WhatsApp Line: 0702932901 (+256702932901)
 - Official Email: pimpliq@pimpliqconsultancy.com
 - Location: Along Bunga-Ggaba Road, Kampala, Uganda
-- Social Channels: Active on TikTok (@pimpliqconsultancyltd) and Instagram (@pimpliqconsultancyltd / https://www.instagram.com/pimpliqconsultancyltd). Other channels being set up soon.
+- Social Channels: Active on TikTok (@pimpliqconsultancyltd), Instagram (@pimpliqconsultancyltd / https://www.instagram.com/pimpliqconsultancyltd), and Facebook (Pimpliq Consultancy Ltd / https://www.facebook.com/pimpliqconsultancyltd). Other channels being set up soon.
 
 All pricing estimates and proposal calculations are structured in Ugandan Shillings (UGX). Standard advisory engagements typically range from UGX 3,800,000 to UGX 15,000,000+ depending on company scale and scope requirements.
 

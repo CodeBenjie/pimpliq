@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, Loader2, Clock, MessageSquare, ExternalLink, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, Loader2, Clock, MessageSquare, ExternalLink, Instagram, Facebook } from 'lucide-react';
 import { COMPANY_CONTACT } from '../data/pimpliqData';
 import { db } from '../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
@@ -207,6 +207,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialMessage =
                         className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-gradient-to-tr hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#8134AF] text-white hover:text-white border border-white/15 hover:border-transparent flex items-center justify-center transition-all hover:scale-110 shadow-md group"
                       >
                         <Instagram className="w-5 h-5 transition-transform group-hover:scale-105" />
+                      </a>
+
+                      {/* Facebook Icon Button */}
+                      <a
+                        href={COMPANY_CONTACT.facebookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Facebook: Pimpliq Consultancy Ltd"
+                        title="Facebook - Pimpliq Consultancy Ltd"
+                        className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-[#1877F2] text-white hover:text-white border border-white/15 hover:border-transparent flex items-center justify-center transition-all hover:scale-110 shadow-md group"
+                      >
+                        <Facebook className="w-5 h-5 transition-transform group-hover:scale-105" />
                       </a>
                     </div>
                     <p className="text-[11px] text-gray-400 mt-2">

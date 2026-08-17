@@ -400,5 +400,7 @@ export const COMPANY_CONTACT: CompanyContactInfo = {
   tiktokUrl: 'https://www.tiktok.com/@pimpliqconsultancyltd',
   instagramHandle: '@pimpliqconsultancyltd',
   instagramUrl: 'https://www.instagram.com/pimpliqconsultancyltd',
-  socialNote: "We're currently active on TikTok and Instagram, and setting up our other official corporate channels soon."
+  facebookHandle: 'Pimpliq Consultancy Ltd',
+  facebookUrl: 'https://www.facebook.com/pimpliqconsultancyltd',
+  socialNote: "We're active on TikTok, Instagram, and Facebook. Connect with our team for strategic inquiries."
 };

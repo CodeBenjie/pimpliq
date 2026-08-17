@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Lock, FileText, X, Phone, Mail, MapPin, MessageSquare, ExternalLink, Instagram } from 'lucide-react';
+import { ShieldCheck, Lock, FileText, X, Phone, Mail, MapPin, MessageSquare, ExternalLink, Instagram, Facebook } from 'lucide-react';
 import { PIMPLIQ_IMAGES, COMPANY_CONTACT } from '../data/pimpliqData';
 
 export const Footer: React.FC = () => {
@@ -129,6 +129,17 @@ export const Footer: React.FC = () => {
                   className="w-10 h-10 rounded-xl bg-white/5 hover:bg-gradient-to-tr hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#8134AF] text-white hover:text-white border border-white/10 hover:border-transparent flex items-center justify-center transition-all hover:scale-110 shadow-sm"
                 >
                   <Instagram className="w-5 h-5" />
+                </a>
+
+                <a
+                  href={COMPANY_CONTACT.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook: Pimpliq Consultancy Ltd"
+                  title="Facebook: Pimpliq Consultancy Ltd"
+                  className="w-10 h-10 rounded-xl bg-white/5 hover:bg-[#1877F2] text-white hover:text-white border border-white/10 hover:border-transparent flex items-center justify-center transition-all hover:scale-110 shadow-sm"
+                >
+                  <Facebook className="w-5 h-5" />
                 </a>
               </div>
 
