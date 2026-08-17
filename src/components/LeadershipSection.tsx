@@ -39,6 +39,13 @@ export const LeadershipSection: React.FC = () => {
                     src={director.imageUrl}
                     alt={`${director.name} - ${director.role}`}
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      const fallback = director.id === 'dir-1' ? '/assets/nabasa_moreen.jpg' : '/assets/sarah_nakate.jpg';
+                      if (target.src !== fallback && !target.src.endsWith(fallback)) {
+                        target.src = fallback;
+                      }
+                    }}
                     className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                   />
 
