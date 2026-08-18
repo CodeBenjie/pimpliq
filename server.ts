@@ -230,20 +230,31 @@ Reply to: ${submission.email}
   }
 }
 
-// Initialize Gemini Client safely
-let ai: GoogleGenAI | null = null;
-if (process.env.GEMINI_API_KEY) {
+// Initialize Gemini Client safely with Lazy Getter
+function getGeminiClient(): { client: GoogleGenAI; keySource: string } | null {
+  const apiKey =
+    process.env.GEMINI_API_KEY ||
+    process.env.API_KEY ||
+    process.env.GOOGLE_API_KEY ||
+    process.env.VITE_GEMINI_API_KEY;
+
+  if (!apiKey || apiKey.trim() === "" || apiKey === "MY_GEMINI_API_KEY") {
+    return null;
+  }
+
   try {
-    ai = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
+    const client = new GoogleGenAI({
+      apiKey: apiKey.trim(),
       httpOptions: {
         headers: {
           "User-Agent": "aistudio-build",
         },
       },
     });
-  } catch (err) {
-    console.warn("Gemini AI initialization warning:", err);
+    return { client, keySource: "GEMINI_API_KEY" };
+  } catch (err: any) {
+    console.warn("[Gemini AI] Initialization error:", err.message);
+    return null;
   }
 }
 
@@ -251,30 +262,37 @@ const SYSTEM_INSTRUCTION = `You are Milo, the official virtual assistant for Pim
 You provide friendly, executive, articulate, and strategic advice to corporate clients, startups, and business leaders across Uganda and East Africa.
 
 Company Contact & Location Details:
-- Direct Phone: 0702932901 (+256702932901)
-- WhatsApp Line: 0702932901 (+256702932901)
-- Official Email: pimpliq@pimpliqconsultancy.com
-- Location: Along Bunga-Ggaba Road, Kampala, Uganda
-- Social Channels: Active on TikTok (@pimpliqconsultancyltd), Instagram (@pimpliqconsultancyltd / https://www.instagram.com/pimpliqconsultancyltd), and Facebook (Pimpliq Consultancy Ltd / https://www.facebook.com/pimpliqconsultancyltd). Other channels being set up soon.
+- Direct Phone / WhatsApp: +256 756 812707 / +256 777 983195
+- Official Email: pimpliqconsultancyltd@gmail.com
+- Location: Plot 14, Lumumba Avenue, Nakasero, Kampala, Uganda
+- Leadership:
+  * Sarah Nakate – Director & Managing Partner (Executive Advisory & Talent Sourcing)
+  * Nabasa Moreen – Director & Managing Partner (Brand Strategy & Strategic Development)
+- Social Channels: Active on TikTok (@pimpliqconsultancyltd), Instagram (@pimpliqconsultancyltd / https://www.instagram.com/pimpliqconsultancyltd), and Facebook (Pimpliq Consultancy Ltd / https://www.facebook.com/pimpliqconsultancyltd).
 
 All pricing estimates and proposal calculations are structured in Ugandan Shillings (UGX). Standard advisory engagements typically range from UGX 3,800,000 to UGX 15,000,000+ depending on company scale and scope requirements.
 
 Pimpliq Consultancy Ltd specializes in 5 Core Pillars:
-1. Brand Management (8 specialized modules):
-   - Brand Strategy Development (positioning, target audience, values, narrative)
-   - Brand Identity Design (logo design, color palettes, typography, guidelines, style manuals)
-   - Brand Development & Launch (naming, product branding, launch campaigns, go-to-market)
-   - Digital Branding & Online Presence (social media branding, website alignment, reputation, content)
-   - Brand Communication & Marketing (strategy, ad collateral, PR, awareness)
-   - Brand Monitoring & Performance (audits, perception analysis, feedback loops)
-   - Brand Repositioning & Refresh (redesign, modernization, message refinement)
-   - Corporate & Personal Branding (executive branding, leadership positioning, crisis PR)
-2. Recruitment & Talent Sourcing (Executive search, candidate vetting, background audits, team placement)
-3. Event Management & Experiential Activation (Corporate launches, galas, brand activations, conferences)
-4. Taxation & Regulatory Compliance Support (Uganda Revenue Authority / URA corporate tax planning, statutory filings, audit readiness, governance)
-5. Strategic Business Consultancy (Growth strategies, operational efficiency, market feasibility, organizational structure)
+1. Brand Management Practice (8 specialized modules):
+   - Module 1: Brand Strategy Development (positioning, target audience, brand pillars, narrative)
+   - Module 2: Brand Identity Design (visual identity, logo suite, typography, comprehensive style manuals)
+   - Module 3: Brand Development & Launch (naming, product branding, launch roadmap, go-to-market execution)
+   - Module 4: Digital Branding & Online Presence (social media branding, website UI/UX alignment, online reputation)
+   - Module 5: Brand Communication & Marketing Strategy (integrated campaigns, PR, thought leadership)
+   - Module 6: Brand Monitoring & Performance (brand equity audits, sentiment tracking, KPI measurement)
+   - Module 7: Brand Repositioning & Refresh (modernization, visual rebrand, legacy pivot)
+   - Module 8: Corporate & Personal Branding (C-suite executive branding, spokesperson training, crisis PR)
+2. Executive Recruitment & Talent Sourcing (C-suite headhunting, competency mapping, background verification, high-performance team placement)
+3. Event Management & Experiential Activation (Corporate galas, high-profile product launches, protocol management, VIP brand activations)
+4. Taxation & Regulatory Compliance Support (Uganda Revenue Authority / URA tax planning, statutory returns, audit readiness, corporate governance)
+5. Strategic Business Consultancy (Organizational scaling, operational efficiency, market feasibility, regional expansion in East Africa)
 
-Your responses should be authoritative, executive, structured, encouraging, and focused on practical business ROI and brand elevation. Keep answers concise, clear, and scannable with bullet points where appropriate.`;
+Guidelines for Milo:
+- Always be welcoming, highly professional, executive, structured, and helpful.
+- For brand questions, reference the relevant modules.
+- Quote fees in UGX when asked about costs.
+- Provide direct contact details (+256 756 812707, pimpliqconsultancyltd@gmail.com) when clients want to book a consultation or proposal.
+- Keep answers concise, clear, and scannable with bullet points where appropriate.`;
 
 // API Routes
 app.post("/api/chat", async (req, res) => {
@@ -284,42 +302,75 @@ app.post("/api/chat", async (req, res) => {
     return res.status(400).json({ error: "A valid message parameter is required." });
   }
 
-  // Fallback response helper
+  // Fallback response helper if API key is not yet set
   const getFallbackReply = (userQuery: string): string => {
     const q = userQuery.toLowerCase();
     if (q.includes("brand") || q.includes("module") || q.includes("identity") || q.includes("rebrand")) {
       return "Pimpliq Consultancy Ltd delivers comprehensive Brand Management across 8 specialized modules: Strategy Development, Identity Design, Launch Planning, Digital Presence, Marketing Communication, Performance Audits, Repositioning, and Executive Branding. How would you like to elevate your market presence?";
-    } else if (q.includes("tax") || q.includes("compliance") || q.includes("audit")) {
-      return "Our Taxation & Compliance team provides complete corporate tax planning, statutory filings, audit readiness, and governance risk mitigation. Would you like to schedule a compliance review with our senior partners?";
-    } else if (q.includes("recruit") || q.includes("talent") || q.includes("hiring")) {
-      return "Pimpliq connects high-growth enterprises with executive talent through targeted executive search, candidate qualification audits, and seamless team placement.";
-    } else if (q.includes("event") || q.includes("launch") || q.includes("activation")) {
-      return "We conceptualize and execute landmark corporate galas, brand activations, conferences, and experiential launches with end-to-end production management.";
+    } else if (q.includes("tax") || q.includes("compliance") || q.includes("audit") || q.includes("ura")) {
+      return "Our Taxation & Statutory Compliance practice provides full corporate tax planning, URA compliance, audit readiness, and governance risk mitigation. Would you like to schedule a compliance review with our senior partners?";
+    } else if (q.includes("recruit") || q.includes("talent") || q.includes("hiring") || q.includes("staff")) {
+      return "Pimpliq connects high-growth enterprises with top-tier executive talent through targeted executive headhunting, candidate qualification vetting, and strategic team restructuring led by Sarah Nakate.";
+    } else if (q.includes("event") || q.includes("launch") || q.includes("activation") || q.includes("gala")) {
+      return "We conceptualize and execute landmark corporate galas, VIP brand activations, conferences, and experiential launches with end-to-end production management.";
+    } else if (q.includes("contact") || q.includes("phone") || q.includes("email") || q.includes("office") || q.includes("location")) {
+      return "You can reach Pimpliq Consultancy Ltd at Plot 14, Lumumba Avenue, Nakasero, Kampala. Call or WhatsApp us at +256 756 812707 / +256 777 983195, or email pimpliqconsultancyltd@gmail.com.";
     } else {
-      return "Welcome to Pimpliq Consultancy Ltd ('People, Potential, Progress'). We specialize in Brand Management, Talent Recruitment, Event Activation, Tax Advisory, and Strategic Business Consultancy. How can our advisors assist your growth today?";
+      return "Welcome to Pimpliq Consultancy Ltd ('People, Potential, Progress')! I'm Milo. We specialize in 360° Brand Management, Executive Recruitment, Corporate Events, Tax Compliance, and Strategic Business Consultancy. How can our advisors assist your organization today?";
     }
   };
 
   try {
-    if (ai && process.env.GEMINI_API_KEY) {
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: message,
-        config: {
-          systemInstruction: SYSTEM_INSTRUCTION,
-          temperature: 0.7,
-        },
-      });
+    const geminiObj = getGeminiClient();
+    if (geminiObj) {
+      // Cascade through Gemini models: ultra-fast gemini-3.1-flash-lite first
+      const candidateModels = ["gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-3.7-flash"];
+      let generatedText: string | null = null;
+      let usedModel: string = "gemini-3.1-flash-lite";
 
-      const replyText = response.text || getFallbackReply(message);
-      return res.json({ reply: replyText, model: "gemini-3.6-flash" });
+      for (const modelName of candidateModels) {
+        try {
+          const response = await geminiObj.client.models.generateContent({
+            model: modelName,
+            contents: message,
+            config: {
+              systemInstruction: SYSTEM_INSTRUCTION,
+              temperature: 0.7,
+            },
+          });
+
+          if (response && response.text) {
+            generatedText = response.text;
+            usedModel = modelName;
+            break;
+          }
+        } catch (modelErr: any) {
+          console.warn(`[Milo Chat] Model ${modelName} notice (${modelErr?.message?.substring(0, 60)}), trying next...`);
+        }
+      }
+
+      const replyText = generatedText || getFallbackReply(message);
+      return res.json({ reply: replyText, model: usedModel });
     } else {
-      return res.json({ reply: getFallbackReply(message), model: "pimpliq-advisor-fallback" });
+      console.log("[Milo Chat] No Gemini API key detected in environment, using strategic fallback.");
+      return res.json({ reply: getFallbackReply(message), model: "pimpliq-milo-advisor" });
     }
   } catch (error: any) {
-    console.error("Gemini API server error:", error);
-    return res.json({ reply: getFallbackReply(message), model: "pimpliq-advisor-fallback" });
+    console.error("[Milo Chat] Gemini API error:", error?.message || error);
+    return res.json({ reply: getFallbackReply(message), model: "pimpliq-milo-advisor", error: error?.message });
   }
+});
+
+// Diagnostics route for Milo AI Key status
+app.get("/api/milo-status", (req, res) => {
+  const geminiObj = getGeminiClient();
+  const rawKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
+  res.json({
+    aiActive: !!geminiObj,
+    keyConfigured: !!rawKey && rawKey.trim().length > 10,
+    keyPrefix: rawKey ? `${rawKey.substring(0, 4)}...${rawKey.substring(rawKey.length - 4)}` : null,
+    model: "gemini-3.7-flash"
+  });
 });
 
 // Robots.txt & Sitemap.xml SEO routes
@@ -338,6 +389,16 @@ app.get("/sitemap.xml", (req, res) => {
     res.type("application/xml").sendFile(sitemapPath);
   } else {
     res.status(404).send("Sitemap not found");
+  }
+});
+
+// Google Search Console HTML Verification File
+app.get("/googled36ca9bb03dfb9ec.html", (req, res) => {
+  const filePath = path.join(process.cwd(), "public", "googled36ca9bb03dfb9ec.html");
+  if (fs.existsSync(filePath)) {
+    res.type("text/html").sendFile(filePath);
+  } else {
+    res.type("text/html").send("google-site-verification: googled36ca9bb03dfb9ec.html");
   }
 });
 
