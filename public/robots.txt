@@ -1,0 +1,16 @@
+# Robots.txt for Pimpliq Consultancy Ltd
+# https://pimpliq.com
+
+User-agent: *
+Allow: /
+Allow: /#*
+Allow: /assets/
+Allow: /favicon*
+Allow: /sarah_nakate.jpg
+Allow: /nabasa_moreen.jpg
+
+# Crawl-delay for polite indexing
+Crawl-delay: 1
+
+# XML Sitemap
+Sitemap: https://pimpliq.com/sitemap.xml

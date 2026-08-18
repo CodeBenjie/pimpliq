@@ -322,6 +322,25 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
+// Robots.txt & Sitemap.xml SEO routes
+app.get("/robots.txt", (req, res) => {
+  const robotsPath = path.join(process.cwd(), "public", "robots.txt");
+  if (fs.existsSync(robotsPath)) {
+    res.type("text/plain").sendFile(robotsPath);
+  } else {
+    res.type("text/plain").send("User-agent: *\nAllow: /\nSitemap: https://pimpliq.com/sitemap.xml");
+  }
+});
+
+app.get("/sitemap.xml", (req, res) => {
+  const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+  if (fs.existsSync(sitemapPath)) {
+    res.type("application/xml").sendFile(sitemapPath);
+  } else {
+    res.status(404).send("Sitemap not found");
+  }
+});
+
 // Health check route
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", app: "Pimpliq Consultancy Ltd", timestamp: new Date().toISOString() });
