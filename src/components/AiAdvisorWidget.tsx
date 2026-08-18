@@ -168,19 +168,20 @@ export const AiAdvisorWidget: React.FC = () => {
             {/* Header */}
             <div className="bg-[#0F172A] text-white p-4 flex items-center justify-between border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#1A6B74] text-white flex items-center justify-center">
-                  <Bot className="w-4 h-4" />
+                <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#1A6B74] to-[#2BA8B6] text-white flex items-center justify-center shadow-md">
+                  <Bot className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm text-white flex items-center gap-2">
-                    Milo
-                    <span className="text-[10px] font-normal px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                      Live AI
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-bold text-sm text-white">Milo</h4>
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Gemini Live
                     </span>
-                  </h4>
-                  <div className="text-[10px] text-gray-300 flex items-center gap-1">
+                  </div>
+                  <div className="text-[10px] text-gray-300 flex items-center gap-1 mt-0.5">
                     <Sparkles className="w-3 h-3 text-[#D4AF37]" />
-                    <span>Pimpliq Virtual Strategic Advisor</span>
+                    <span>Pimpliq AI Strategic Advisor</span>
                   </div>
                 </div>
               </div>
@@ -229,12 +230,18 @@ export const AiAdvisorWidget: React.FC = () => {
                     ) : (
                       <FormattedMessageText text={msg.text} />
                     )}
-                    <div
-                      className={`text-[9px] mt-1.5 text-right ${
-                        msg.sender === 'user' ? 'text-white/70' : 'text-[var(--text-muted)]'
-                      }`}
-                    >
-                      {msg.timestamp}
+                    <div className="flex items-center justify-between text-[9px] mt-2 pt-1 border-t border-black/5 dark:border-white/5">
+                      {msg.sender === 'bot' ? (
+                        <span className="flex items-center gap-1 text-[#1A6B74] font-medium">
+                          <Sparkles className="w-2.5 h-2.5 text-[#D4AF37]" />
+                          Gemini 3.1 Flash
+                        </span>
+                      ) : (
+                        <span className="text-white/60">You</span>
+                      )}
+                      <span className={msg.sender === 'user' ? 'text-white/70' : 'text-[var(--text-muted)]'}>
+                        {msg.timestamp}
+                      </span>
                     </div>
                   </div>
                 </div>
