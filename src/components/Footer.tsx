@@ -17,6 +17,12 @@ export const Footer: React.FC = () => {
                   src={PIMPLIQ_IMAGES.officialLogo}
                   alt="Pimpliq Consultancy Ltd Logo"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== '/pimpliq_logo.jpg' && !target.src.endsWith('/pimpliq_logo.jpg')) {
+                      target.src = '/pimpliq_logo.jpg';
+                    }
+                  }}
                   className="h-10 sm:h-11 w-auto object-contain"
                 />
               </div>
