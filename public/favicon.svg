@@ -1,3 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <image href="data:image/png;base64,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" width="32" height="32" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pimpliqGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="50%" stop-color="#E8C860" />
+      <stop offset="100%" stop-color="#B38F22" />
+    </linearGradient>
+    <linearGradient id="pimpliqTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A6B74" />
+      <stop offset="100%" stop-color="#0F4A50" />
+    </linearGradient>
+    <linearGradient id="pimpliqNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Figure Head (Teal) -->
+  <circle cx="26" cy="28" r="9.5" fill="url(#pimpliqTeal)" />
+  
+  <!-- Right Figure Head (Teal) -->
+  <circle cx="58" cy="18" r="9.5" fill="url(#pimpliqTeal)" />
+
+  <!-- Outer Teal Modern P Arch & Left Body -->
+  <path d="M 42 35 C 55 35, 78 35, 78 52 C 78 68, 62 72, 48 72 C 34 72, 28 85, 30 92 C 16 80, 15 58, 22 46 C 26 40, 32 35, 42 35 Z" fill="url(#pimpliqTeal)" />
+
+  <!-- Inner Deep Navy Curve -->
+  <path d="M 43 45 C 56 45, 68 49, 68 60 C 68 70, 52 74, 40 74 C 28 74, 22 84, 25 90 C 20 84, 18 68, 26 56 C 30 50, 36 45, 43 45 Z" fill="url(#pimpliqNavy)" />
+
+  <!-- Flowing Gold Potential Ribbon (Dynamic Ribbon Arch) -->
+  <path d="M 55 52 C 64 54, 65 64, 55 72 C 45 80, 38 86, 38 95 C 42 90, 48 83, 56 77 C 68 68, 70 56, 55 52 Z" fill="url(#pimpliqGold)" />
 </svg>
