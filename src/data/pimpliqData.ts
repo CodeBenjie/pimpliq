@@ -2,24 +2,16 @@ import { ServicePillar, BrandModule, CaseStudy, Testimonial, EstimatorItem, Dire
 
 import heroOfficeImg from '../assets/images/hero_ugandan_office_1786641496658.jpg';
 import officialLogoImg from '../assets/images/pimpliq_official_logo_1786455272779.jpg';
-import nabasaMoreenImg from '../assets/images/nabasa_moreen.jpg';
-import sarahNakateImg from '../assets/images/sarah_nakate.jpg';
 import brandStudioImg from '../assets/images/ugandan_brand_studio_1786641516587.jpg';
 import teamMeetingImg from '../assets/images/ugandan_team_meeting_1786641505809.jpg';
-import ceoPortraitImg from '../assets/images/ugandan_ceo_portrait_1786641526528.jpg';
-import mdPortraitImg from '../assets/images/ugandan_md_portrait_1786641538962.jpg';
-import commPortraitImg from '../assets/images/ugandan_comm_portrait_1786641549129.jpg';
 
 export const PIMPLIQ_IMAGES = {
   heroOffice: heroOfficeImg,
   officialLogo: officialLogoImg,
-  nabasaMoreen: nabasaMoreenImg,
-  sarahNakate: sarahNakateImg,
+  nabasaMoreen: '/nabasa_moreen.jpg',
+  sarahNakate: '/sarah_nakate.jpg',
   brandStudio: brandStudioImg,
   teamMeeting: teamMeetingImg,
-  ceoPortrait: ceoPortraitImg,
-  mdPortrait: mdPortraitImg,
-  commPortrait: commPortraitImg,
 };
 
 export const DIRECTORS: Director[] = [
@@ -30,7 +22,7 @@ export const DIRECTORS: Director[] = [
     title: 'Executive Advisory & Talent Sourcing',
     bio: 'Oversees executive search, organizational advisory, statutory compliance, and corporate event management. Committed to unlocking human potential and corporate operational excellence.',
     expertise: ['Executive Recruitment', 'Corporate Advisory', 'Statutory Compliance & Tax', 'High-Profile Event Activation'],
-    imageUrl: sarahNakateImg,
+    imageUrl: '/sarah_nakate.jpg',
     quote: 'Sustainable corporate growth begins with the right leaders, clear structures, and flawless execution.'
   },
   {
@@ -40,7 +32,7 @@ export const DIRECTORS: Director[] = [
     title: 'Brand Strategy & Strategic Development',
     bio: 'Leads Pimpliq’s strategic branding, corporate repositioning, and client growth practices. Dedicated to building enduring institutional brand equity for enterprises across East Africa.',
     expertise: ['360° Brand Strategy', 'Corporate Identity', 'Market Positioning', 'PR & Executive Communications'],
-    imageUrl: nabasaMoreenImg,
+    imageUrl: '/nabasa_moreen.jpg',
     quote: 'We don’t just manage brands—we build powerful brand experiences that connect, influence, and drive long-term business success.'
   }
 ];
@@ -319,7 +311,6 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'Chief Executive Officer',
     company: 'Mukwano Industrial Group',
     quote: 'Pimpliq Consultancy Ltd completely transformed our brand perception across Uganda and East Africa. Their 8-module brand management process brought absolute clarity, strategic alignment, and immediate commercial traction.',
-    avatarUrl: ceoPortraitImg,
     rating: 5,
     serviceCategory: 'Brand Management'
   },
@@ -329,7 +320,6 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'Managing Director',
     company: 'FinTech Horizons Uganda',
     quote: 'Their executive recruitment precision in Kampala is unmatched. Pimpliq delivered senior leaders who aligned perfectly with our corporate culture and aggressive growth targets.',
-    avatarUrl: mdPortraitImg,
     rating: 5,
     serviceCategory: 'Recruitment'
   },
@@ -339,7 +329,6 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'Head of Corporate Communications',
     company: 'Sovereign Global East Africa',
     quote: 'From corporate event management in Kampala to URA tax compliance advisory, Pimpliq demonstrates an incredible standard of professionalism. They live up to their slogan: People, Potential, Progress.',
-    avatarUrl: commPortraitImg,
     rating: 5,
     serviceCategory: 'Event Management'
   }

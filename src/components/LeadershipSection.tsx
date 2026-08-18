@@ -34,7 +34,7 @@ export const LeadershipSection: React.FC = () => {
                 className="bg-[var(--bg-card)] rounded-3xl overflow-hidden border border-[var(--border-color)] hover:border-[#D4AF37]/50 shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col sm:flex-row group relative"
               >
                 {/* Director Portrait Column */}
-                <div className="w-full sm:w-5/12 relative overflow-hidden bg-slate-100 dark:bg-slate-900 aspect-[3/4] sm:aspect-auto sm:min-h-[480px] shrink-0">
+                <div className="w-full sm:w-5/12 relative overflow-hidden bg-gradient-to-br from-[#0F172A] to-[#1A6B74]/30 aspect-[3/4] sm:aspect-auto sm:min-h-[480px] shrink-0 flex items-center justify-center">
                   <img
                     id={`director-img-${director.id}`}
                     src={director.imageUrl}
@@ -42,15 +42,37 @@ export const LeadershipSection: React.FC = () => {
                     referrerPolicy="no-referrer"
                     onError={(e) => {
                       const target = e.currentTarget;
-                      const fallback = director.id === 'dir-1' ? '/nabasa_moreen.jpg' : '/sarah_nakate.jpg';
-                      if (target.src !== fallback && !target.src.endsWith(fallback)) {
-                        target.src = fallback;
-                      }
+                      target.style.display = 'none';
+                      const placeholder = document.getElementById(`director-fallback-${director.id}`);
+                      if (placeholder) placeholder.style.display = 'flex';
+                    }}
+                    onLoad={(e) => {
+                      const target = e.currentTarget;
+                      target.style.display = 'block';
+                      const placeholder = document.getElementById(`director-fallback-${director.id}`);
+                      if (placeholder) placeholder.style.display = 'none';
                     }}
                     className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] ${
                       director.id === 'dir-2' ? 'object-[center_20%]' : 'object-[center_15%]'
                     }`}
                   />
+
+                  {/* Fallback Monogram Avatar if image not yet committed */}
+                  <div
+                    id={`director-fallback-${director.id}`}
+                    className="absolute inset-0 flex-col items-center justify-center p-6 text-center text-white hidden bg-gradient-to-br from-slate-900 via-[#1A6B74]/40 to-slate-900"
+                  >
+                    <div className="w-24 h-24 rounded-full bg-[#1A6B74]/40 border-2 border-[#D4AF37] flex items-center justify-center mb-4 shadow-lg">
+                      <span className="text-3xl font-extrabold text-[#E8C860]">
+                        {director.name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                    <div className="text-lg font-bold text-white">{director.name}</div>
+                    <div className="text-xs text-[#E8C860] mt-1 font-semibold">{director.role}</div>
+                    <div className="text-[11px] text-slate-300 mt-2 px-3 py-1 rounded bg-black/40 border border-white/10">
+                      Upload {director.id === 'dir-2' ? 'sarah_nakate.jpg' : 'nabasa_moreen.jpg'}
+                    </div>
+                  </div>
 
                   {/* Mobile-only subtle bottom gradient for text contrast */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent sm:hidden pointer-events-none" />

@@ -49,7 +49,7 @@ export interface Testimonial {
   role: string;
   company: string;
   quote: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   rating: number;
   serviceCategory: string;
 }
