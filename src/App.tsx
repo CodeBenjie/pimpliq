@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { TrustStats } from './components/TrustStats';
@@ -152,6 +153,9 @@ export default function App() {
           <span>{toastText}</span>
         </div>
       )}
+
+      {/* Vercel Speed Insights */}
+      <SpeedInsights />
     </div>
   );
 }
