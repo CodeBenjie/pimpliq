@@ -258,41 +258,20 @@ function getGeminiClient(): { client: GoogleGenAI; keySource: string } | null {
   }
 }
 
-const SYSTEM_INSTRUCTION = `You are Milo, the official virtual assistant for Pimpliq Consultancy Ltd (Slogan: "People, Potential, Progress"), based in Kampala, Uganda. 
-You provide friendly, executive, articulate, and strategic advice to corporate clients, startups, and business leaders across Uganda and East Africa.
+const SYSTEM_INSTRUCTION = `You are Milo, the official AI Virtual Assistant for Pimpliq Consultancy Ltd (Slogan: "People, Potential, Progress"), based in Nakasero, Kampala, Uganda.
 
-Company Contact & Location Details:
-- Direct Phone / WhatsApp: +256 756 812707 / +256 777 983195
-- Official Email: pimpliqconsultancyltd@gmail.com
-- Location: Plot 14, Lumumba Avenue, Nakasero, Kampala, Uganda
-- Leadership:
-  * Sarah Nakate – Director & Managing Partner (Executive Advisory & Talent Sourcing)
-  * Nabasa Moreen – Director & Managing Partner (Brand Strategy & Strategic Development)
-- Social Channels: Active on TikTok (@pimpliqconsultancyltd), Instagram (@pimpliqconsultancyltd / https://www.instagram.com/pimpliqconsultancyltd), and Facebook (Pimpliq Consultancy Ltd / https://www.facebook.com/pimpliqconsultancyltd).
-
-All pricing estimates and proposal calculations are structured in Ugandan Shillings (UGX). Standard advisory engagements typically range from UGX 3,800,000 to UGX 15,000,000+ depending on company scale and scope requirements.
-
-Pimpliq Consultancy Ltd specializes in 5 Core Pillars:
-1. Brand Management Practice (8 specialized modules):
-   - Module 1: Brand Strategy Development (positioning, target audience, brand pillars, narrative)
-   - Module 2: Brand Identity Design (visual identity, logo suite, typography, comprehensive style manuals)
-   - Module 3: Brand Development & Launch (naming, product branding, launch roadmap, go-to-market execution)
-   - Module 4: Digital Branding & Online Presence (social media branding, website UI/UX alignment, online reputation)
-   - Module 5: Brand Communication & Marketing Strategy (integrated campaigns, PR, thought leadership)
-   - Module 6: Brand Monitoring & Performance (brand equity audits, sentiment tracking, KPI measurement)
-   - Module 7: Brand Repositioning & Refresh (modernization, visual rebrand, legacy pivot)
-   - Module 8: Corporate & Personal Branding (C-suite executive branding, spokesperson training, crisis PR)
-2. Executive Recruitment & Talent Sourcing (C-suite headhunting, competency mapping, background verification, high-performance team placement)
-3. Event Management & Experiential Activation (Corporate galas, high-profile product launches, protocol management, VIP brand activations)
-4. Taxation & Regulatory Compliance Support (Uganda Revenue Authority / URA tax planning, statutory returns, audit readiness, corporate governance)
-5. Strategic Business Consultancy (Organizational scaling, operational efficiency, market feasibility, regional expansion in East Africa)
-
-Guidelines for Milo:
-- Always be welcoming, highly professional, executive, structured, and helpful.
-- For brand questions, reference the relevant modules.
-- Quote fees in UGX when asked about costs.
-- Provide direct contact details (+256 756 812707, pimpliqconsultancyltd@gmail.com) when clients want to book a consultation or proposal.
-- Keep answers concise, clear, and scannable with bullet points where appropriate.`;
+CORE BEHAVIOR:
+- Respond naturally, conversationally, and concisely as an executive Ugandan business advisor.
+- ANSWER THE USER'S SPECIFIC QUESTION DIRECTLY.
+- DO NOT dump generic boilerplate, contact lists, or long company intros repeatedly. If the user says "hello" or "hi", reply in 1-2 friendly sentences.
+- When asked about branding, explain the relevant modules among Pimpliq's 8 Brand Management Modules (Strategy, Identity Design, Launch, Digital Presence, Marketing Communication, Performance Audits, Repositioning, Corporate/Executive Branding).
+- When asked about recruitment, reference our Executive Search & Talent Sourcing practice led by Director Sarah Nakate.
+- When asked about brand strategy or business growth, reference Director Nabasa Moreen.
+- When asked about tax/statutory compliance, reference URA tax planning, audits, and statutory governance.
+- When asked about corporate events, reference high-profile corporate galas, product launches, and VIP activations.
+- When asked about pricing, quote standard advisory engagements in Ugandan Shillings (typically ranging from UGX 3,800,000 to UGX 15,000,000+ depending on scope).
+- ONLY provide direct contact info (Phone/WhatsApp: +256 756 812707 / +256 777 983195, Email: pimpliqconsultancyltd@gmail.com, Office: Plot 14 Lumumba Ave, Nakasero) when relevant to booking, consulting, or when the user asks how to get in touch.
+- Use clean formatting with short paragraphs and bullet points for readability.`;
 
 // API Routes
 app.post("/api/chat", async (req, res) => {
@@ -304,25 +283,47 @@ app.post("/api/chat", async (req, res) => {
 
   // Fallback response helper if API key is not yet set
   const getFallbackReply = (userQuery: string): string => {
-    const q = userQuery.toLowerCase();
-    if (q.includes("brand") || q.includes("module") || q.includes("identity") || q.includes("rebrand")) {
-      return "Pimpliq Consultancy Ltd delivers comprehensive Brand Management across 8 specialized modules: Strategy Development, Identity Design, Launch Planning, Digital Presence, Marketing Communication, Performance Audits, Repositioning, and Executive Branding. How would you like to elevate your market presence?";
+    const q = userQuery.toLowerCase().trim();
+    if (q === "hi" || q === "hello" || q === "hey" || q === "good morning" || q === "good afternoon") {
+      return "Hello! I'm Milo, your Pimpliq advisor. How can I help you today with Brand Management, Talent Recruitment, Tax Compliance, or Corporate Events?";
+    } else if (q.includes("brand") || q.includes("module") || q.includes("identity") || q.includes("rebrand")) {
+      return "Pimpliq delivers comprehensive Brand Management across 8 specialized modules: Strategy Development, Identity Design, Launch Planning, Digital Presence, Marketing Communication, Performance Audits, Repositioning, and Executive Branding. What stage is your brand currently at?";
     } else if (q.includes("tax") || q.includes("compliance") || q.includes("audit") || q.includes("ura")) {
-      return "Our Taxation & Statutory Compliance practice provides full corporate tax planning, URA compliance, audit readiness, and governance risk mitigation. Would you like to schedule a compliance review with our senior partners?";
+      return "Our Taxation & Statutory Compliance practice provides corporate tax planning, URA compliance reviews, audit readiness, and governance risk mitigation. Would you like to schedule an assessment with our compliance partners?";
     } else if (q.includes("recruit") || q.includes("talent") || q.includes("hiring") || q.includes("staff")) {
-      return "Pimpliq connects high-growth enterprises with top-tier executive talent through targeted executive headhunting, candidate qualification vetting, and strategic team restructuring led by Sarah Nakate.";
+      return "Pimpliq connects high-growth enterprises with top-tier executive talent through targeted C-suite headhunting, competency mapping, and background vetting led by Sarah Nakate.";
     } else if (q.includes("event") || q.includes("launch") || q.includes("activation") || q.includes("gala")) {
       return "We conceptualize and execute landmark corporate galas, VIP brand activations, conferences, and experiential launches with end-to-end production management.";
-    } else if (q.includes("contact") || q.includes("phone") || q.includes("email") || q.includes("office") || q.includes("location")) {
+    } else if (q.includes("contact") || q.includes("phone") || q.includes("email") || q.includes("office") || q.includes("location") || q.includes("call")) {
       return "You can reach Pimpliq Consultancy Ltd at Plot 14, Lumumba Avenue, Nakasero, Kampala. Call or WhatsApp us at +256 756 812707 / +256 777 983195, or email pimpliqconsultancyltd@gmail.com.";
     } else {
-      return "Welcome to Pimpliq Consultancy Ltd ('People, Potential, Progress')! I'm Milo. We specialize in 360° Brand Management, Executive Recruitment, Corporate Events, Tax Compliance, and Strategic Business Consultancy. How can our advisors assist your organization today?";
+      return "Thank you for your message! Pimpliq specializes in Brand Management, Talent Recruitment, Event Activation, Tax Advisory, and Strategic Growth. How can our advisors assist your organization today?";
     }
   };
 
   try {
     const geminiObj = getGeminiClient();
     if (geminiObj) {
+      // Build conversation contents with history if available
+      let contentsPayload: any = message;
+      if (Array.isArray(history) && history.length > 0) {
+        const formattedHistory = history
+          .filter((h: any) => h && h.text && (h.sender === "user" || h.sender === "bot"))
+          .slice(-6)
+          .map((h: any) => ({
+            role: h.sender === "user" ? "user" : "model",
+            parts: [{ text: String(h.text) }]
+          }));
+
+        if (formattedHistory.length > 0) {
+          formattedHistory.push({
+            role: "user",
+            parts: [{ text: message }]
+          });
+          contentsPayload = formattedHistory;
+        }
+      }
+
       // Cascade through Gemini models: ultra-fast gemini-3.1-flash-lite first
       const candidateModels = ["gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-3.7-flash"];
       let generatedText: string | null = null;
@@ -332,7 +333,7 @@ app.post("/api/chat", async (req, res) => {
         try {
           const response = await geminiObj.client.models.generateContent({
             model: modelName,
-            contents: message,
+            contents: contentsPayload,
             config: {
               systemInstruction: SYSTEM_INSTRUCTION,
               temperature: 0.7,
