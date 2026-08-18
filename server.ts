@@ -462,18 +462,15 @@ app.get("/api/consultation", (req, res) => {
 
 async function startServer() {
   const distPath = path.join(process.cwd(), "dist");
-  const isProduction =
-    process.env.NODE_ENV === "production" ||
-    (process.env.NODE_ENV !== "development" && fs.existsSync(path.join(distPath, "index.html")));
 
-  if (isProduction) {
-    console.log("Starting server in PRODUCTION mode...");
+  if (process.env.NODE_ENV === "production") {
+    console.log("Starting server in PRODUCTION mode from dist/...");
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
   } else {
-    console.log("Starting server in DEVELOPMENT mode with Vite middleware...");
+    console.log("Starting server in DEVELOPMENT mode with live Vite middleware...");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
