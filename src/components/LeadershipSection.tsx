@@ -34,7 +34,7 @@ export const LeadershipSection: React.FC = () => {
                 className="bg-[var(--bg-card)] rounded-3xl overflow-hidden border border-[var(--border-color)] hover:border-[#D4AF37]/50 shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col sm:flex-row group relative"
               >
                 {/* Director Portrait Column */}
-                <div className="w-full sm:w-5/12 relative overflow-hidden bg-slate-900 aspect-[4/5] sm:aspect-auto sm:min-h-[460px] shrink-0">
+                <div className="w-full sm:w-5/12 relative overflow-hidden bg-slate-100 dark:bg-slate-900 aspect-[3/4] sm:aspect-auto sm:min-h-[480px] shrink-0">
                   <img
                     id={`director-img-${director.id}`}
                     src={director.imageUrl}
@@ -42,18 +42,18 @@ export const LeadershipSection: React.FC = () => {
                     referrerPolicy="no-referrer"
                     onError={(e) => {
                       const target = e.currentTarget;
-                      const fallback = director.id === 'dir-1' ? '/assets/nabasa_moreen.jpg' : '/assets/sarah_nakate.jpg';
+                      const fallback = director.id === 'dir-1' ? '/nabasa_moreen.jpg' : '/sarah_nakate.jpg';
                       if (target.src !== fallback && !target.src.endsWith(fallback)) {
                         target.src = fallback;
                       }
                     }}
-                    className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${
-                      director.id === 'dir-2' ? 'object-[center_15%]' : 'object-[center_12%]'
+                    className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] ${
+                      director.id === 'dir-2' ? 'object-[center_20%]' : 'object-[center_15%]'
                     }`}
                   />
 
-                  {/* Subtle dark gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent sm:opacity-60 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none" />
+                  {/* Mobile-only subtle bottom gradient for text contrast */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent sm:hidden pointer-events-none" />
 
                   <div className="absolute bottom-4 left-4 right-4 text-white sm:hidden pointer-events-none">
                     <div className="text-xs font-bold text-[#E8C860] uppercase tracking-wider">{director.role}</div>
