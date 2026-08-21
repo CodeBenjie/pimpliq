@@ -13,7 +13,6 @@ import { TestimonialsSection } from './components/TestimonialsSection';
 import { CtaBanner } from './components/CtaBanner';
 import { ContactSection } from './components/ContactSection';
 import { ServiceModal } from './components/ServiceModal';
-import { AiAdvisorWidget } from './components/AiAdvisorWidget';
 import { WhatsAppWidget } from './components/WhatsAppWidget';
 import { Footer } from './components/Footer';
 import { InteractiveBackground } from './components/InteractiveBackground';
@@ -141,9 +140,6 @@ export default function App() {
 
       {/* Floating Instant WhatsApp Live Connect */}
       <WhatsAppWidget />
-
-      {/* AI Studio Advisor Floating Widget */}
-      <AiAdvisorWidget />
 
       {/* Floating Toast Notification */}
       {toastText && (

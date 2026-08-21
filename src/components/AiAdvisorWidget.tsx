@@ -111,22 +111,28 @@ export const AiAdvisorWidget: React.FC = () => {
         })
       });
 
+      if (!res.ok) {
+        throw new Error(`Server returned HTTP ${res.status}`);
+      }
+
       const data = await res.json();
       const botMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         sender: 'bot',
-        text: data.reply || "Thank you for reaching out to Pimpliq Consultancy Ltd. How else may I assist you?",
+        text: data.reply || "Thank you for reaching out to Pimpliq Consultancy Ltd. How may I assist you with your business goals?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         model: data.model || 'gemini-3.1-flash-lite'
       };
 
       setMessages(prev => [...prev, botMsg]);
-    } catch (err) {
+    } catch (err: any) {
+      console.error("[AiAdvisorWidget] Chat error:", err);
       const fallbackMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         sender: 'bot',
-        text: "Pimpliq Consultancy Ltd provides 5 pillars: Brand Management (8 modules), Executive Recruitment, Event Activation, Tax Advisory, and Strategic Consulting. How can we help?",
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        text: "I am ready to assist you with Brand Management, Talent Recruitment, Corporate Events, and Tax Compliance. What specific questions can I answer for you?",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        model: 'pimpliq-milo-advisor'
       };
       setMessages(prev => [...prev, fallbackMsg]);
     } finally {

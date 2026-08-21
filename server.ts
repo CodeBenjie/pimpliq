@@ -11,6 +11,17 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
+// Permissive CORS & Security Headers for preview container & external domain access
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
@@ -277,11 +288,14 @@ CORE BEHAVIOR:
 app.post("/api/chat", async (req, res) => {
   const { message, history } = req.body;
 
-  if (!message || typeof message !== "string") {
+  if (!message || typeof message !== "string" || message.trim() === "") {
     return res.status(400).json({ error: "A valid message parameter is required." });
   }
 
-  // Fallback response helper if API key is not yet set
+  const cleanMessage = message.trim();
+  console.log(`[Milo API Request] Message: "${cleanMessage.substring(0, 80)}" | History items: ${Array.isArray(history) ? history.length : 0}`);
+
+  // Contextual fallback response helper if API key is missing or model offline
   const getFallbackReply = (userQuery: string): string => {
     const q = userQuery.toLowerCase().trim();
     if (q === "hi" || q === "hello" || q === "hey" || q === "good morning" || q === "good afternoon") {
@@ -297,30 +311,41 @@ app.post("/api/chat", async (req, res) => {
     } else if (q.includes("contact") || q.includes("phone") || q.includes("email") || q.includes("office") || q.includes("location") || q.includes("call")) {
       return "You can reach Pimpliq Consultancy Ltd at Plot 14, Lumumba Avenue, Nakasero, Kampala. Call or WhatsApp us at +256 756 812707 / +256 777 983195, or email pimpliqconsultancyltd@gmail.com.";
     } else {
-      return "Thank you for your message! Pimpliq specializes in Brand Management, Talent Recruitment, Event Activation, Tax Advisory, and Strategic Growth. How can our advisors assist your organization today?";
+      return "Pimpliq Consultancy Ltd ('People, Potential, Progress') delivers 360° Brand Management, Executive Talent Headhunting, URA Tax Advisory, and Corporate Event Activation. How may I assist your organization today?";
     }
   };
 
   try {
     const geminiObj = getGeminiClient();
     if (geminiObj) {
-      // Build conversation contents with history if available
-      let contentsPayload: any = message;
-      if (Array.isArray(history) && history.length > 0) {
-        const formattedHistory = history
-          .filter((h: any) => h && h.text && (h.sender === "user" || h.sender === "bot"))
-          .slice(-6)
-          .map((h: any) => ({
-            role: h.sender === "user" ? "user" : "model",
-            parts: [{ text: String(h.text) }]
-          }));
+      // Build conversation contents with alternating user/model roles strictly starting with 'user'
+      let contentsPayload: any = cleanMessage;
 
-        if (formattedHistory.length > 0) {
-          formattedHistory.push({
-            role: "user",
-            parts: [{ text: message }]
-          });
-          contentsPayload = formattedHistory;
+      if (Array.isArray(history) && history.length > 0) {
+        const validTurns: { role: "user" | "model"; parts: [{ text: string }] }[] = [];
+        let expectingUser = true;
+
+        for (const item of history) {
+          if (!item || typeof item.text !== "string" || !item.text.trim()) continue;
+          
+          if (expectingUser && item.sender === "user") {
+            validTurns.push({ role: "user", parts: [{ text: item.text.trim() }] });
+            expectingUser = false;
+          } else if (!expectingUser && (item.sender === "bot" || item.sender === "model")) {
+            validTurns.push({ role: "model", parts: [{ text: item.text.trim() }] });
+            expectingUser = true;
+          }
+        }
+
+        // Ensure the current user message is appended as the active turn
+        if (validTurns.length > 0) {
+          if (validTurns[validTurns.length - 1].role === "user") {
+            // Replace last user turn with current cleanMessage if identical
+            validTurns[validTurns.length - 1] = { role: "user", parts: [{ text: cleanMessage }] };
+          } else {
+            validTurns.push({ role: "user", parts: [{ text: cleanMessage }] });
+          }
+          contentsPayload = validTurns;
         }
       }
 
@@ -340,25 +365,26 @@ app.post("/api/chat", async (req, res) => {
             },
           });
 
-          if (response && response.text) {
-            generatedText = response.text;
+          if (response && response.text && response.text.trim()) {
+            generatedText = response.text.trim();
             usedModel = modelName;
+            console.log(`[Milo AI Success] Generated reply using ${modelName} (${generatedText.length} chars)`);
             break;
           }
         } catch (modelErr: any) {
-          console.warn(`[Milo Chat] Model ${modelName} notice (${modelErr?.message?.substring(0, 60)}), trying next...`);
+          console.warn(`[Milo AI Notice] Model ${modelName} failed (${modelErr?.message?.substring(0, 100)}), trying fallback candidate...`);
         }
       }
 
-      const replyText = generatedText || getFallbackReply(message);
+      const replyText = generatedText || getFallbackReply(cleanMessage);
       return res.json({ reply: replyText, model: usedModel });
     } else {
       console.log("[Milo Chat] No Gemini API key detected in environment, using strategic fallback.");
-      return res.json({ reply: getFallbackReply(message), model: "pimpliq-milo-advisor" });
+      return res.json({ reply: getFallbackReply(cleanMessage), model: "pimpliq-milo-advisor" });
     }
   } catch (error: any) {
-    console.error("[Milo Chat] Gemini API error:", error?.message || error);
-    return res.json({ reply: getFallbackReply(message), model: "pimpliq-milo-advisor", error: error?.message });
+    console.error("[Milo Chat] Top-level handler error:", error?.message || error);
+    return res.json({ reply: getFallbackReply(cleanMessage), model: "pimpliq-milo-advisor", error: error?.message });
   }
 });
 

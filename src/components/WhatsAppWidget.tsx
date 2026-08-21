@@ -57,12 +57,12 @@ export const WhatsAppWidget: React.FC = () => {
 
   return (
     <>
-      {/* Floating Action Button */}
-      <div className="fixed bottom-6 left-6 z-40 flex items-center gap-2">
+      {/* Floating Action Button on Bottom Right */}
+      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Open WhatsApp live chat"
-          className="group relative flex items-center gap-2 px-3.5 sm:px-4 py-2.5 sm:py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
+          aria-label="Chat on WhatsApp"
+          className="group relative flex items-center gap-2.5 px-4 sm:px-5 py-3 sm:py-3.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#20bd5a] hover:to-[#0f776a] text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 border border-white/25"
         >
           {/* Online Pulse Indicator */}
           <span className="relative flex h-2.5 w-2.5">
@@ -72,11 +72,11 @@ export const WhatsAppWidget: React.FC = () => {
 
           <WhatsAppIcon className="w-5 h-5 text-white" />
           
-          <span className="text-xs font-bold tracking-wide">WhatsApp</span>
+          <span className="text-xs sm:text-sm font-bold tracking-wide">WhatsApp</span>
         </button>
       </div>
 
-      {/* Flyout Card */}
+      {/* Flyout Card on Bottom Right */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -84,7 +84,7 @@ export const WhatsAppWidget: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed bottom-24 left-4 sm:left-6 z-40 w-[340px] sm:w-[380px] bg-[var(--bg-card)] border border-[var(--border-color)] rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+            className="fixed bottom-24 right-4 sm:right-6 z-40 w-[340px] sm:w-[380px] bg-[var(--bg-card)] border border-[var(--border-color)] rounded-3xl shadow-2xl overflow-hidden flex flex-col"
           >
             {/* WhatsApp Header */}
             <div className="bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white p-4.5 flex items-center justify-between">
@@ -172,7 +172,7 @@ export const WhatsAppWidget: React.FC = () => {
 
             {/* Footer Notice */}
             <div className="px-4 py-2.5 bg-[var(--bg-card)] border-t border-[var(--border-color)] flex items-center justify-between text-[10px] text-[var(--text-muted)]">
-              <span>Direct WhatsApp: <strong className="text-[var(--text-main)]">+256 702 932 901</strong></span>
+              <span>Direct WhatsApp: <strong className="text-[var(--text-main)]">+{COMPANY_CONTACT.whatsapp}</strong></span>
               <span className="text-[#25D366] font-semibold">Kampala, UG</span>
             </div>
           </motion.div>
