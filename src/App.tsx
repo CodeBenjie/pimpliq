@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { TrustStats } from './components/TrustStats';
@@ -96,6 +97,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-main)] transition-colors duration-300">
+      <Analytics />
       {/* Fancy Interactive Ambient Canvas Background */}
       <InteractiveBackground darkMode={darkMode} />
 
